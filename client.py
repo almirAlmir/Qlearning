@@ -3,12 +3,11 @@ import numpy as np
 import connection as cn
 import random
 
-s = cn.connect(2037)
-act = ["left", "right", "jump"]                 #A ordem das colunas na Q-Table de ser
-                                                #Giro pra esquerda, Giro pra direita, Pulo pra frente
+act = ["left", "right", "jump"]     #A ordem das colunas na Q-Table de ser
+                                    #Giro pra esquerda, Giro pra direita, Pulo pra frente
 Qtable = np.zeros((96, len(act)))
 
-#Hyperparametros Alpha, Gamma e Epsilon. Optei por iniciar comm valores padrao abaixo
+#Hyperparametros Alpha, Gamma e Epsilon. Optei por iniciar com valores padrao abaixo
 
 alpha = 0.01
 gamma = 0.9
@@ -31,14 +30,14 @@ def write_txt(q_tabel):
             
     file.close()
     
-
+s = cn.connect(2037)
 for i in range (1, 1000):
     
     finished = False
     
     while not finished:
         
-        action = -1
+        action = 0
         
         if random.uniform(0, 1) < epsilon:
             action = random.randint(0, 2) #Uma das 3 açoes: left, right, jump
@@ -51,7 +50,7 @@ for i in range (1, 1000):
                     value = Qtable[state][index]
                     
         current_state = state
-        state, reward = cn.get_state_reward(s, act[action])
+        state, reward = cn.get_state_reward(s , act[action])
         state = int(state, 2) #S2
         
         #Equação de Bellman para atualização da Tabela_Q
