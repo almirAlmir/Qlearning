@@ -5,9 +5,7 @@ import random
 
 act = ["left", "right", "jump"]     #A ordem das colunas na Q-Table de ser
                                     #Giro pra esquerda, Giro pra direita, Pulo pra frente
-Qtable = np.zeros((96, len(act)))
 
-print(Qtable)
 
 #Hyperparametros Alpha, Gamma e Epsilon. Optei por iniciar com valores padrao abaixo
 
@@ -35,8 +33,11 @@ def write_txt(q_tabel):
 def read_txt(filename):
     with open(filename, "r") as file:
         lines = file.readlines()
-        q_tabel = [list(map(int, line.strip().split())) for line in lines]
+        q_tabel = [list(map(float, line.strip().split())) for line in lines]
     return q_tabel
+
+Qtable = read_txt("resultado.txt")
+print(Qtable)
     
 s = cn.connect(2037)
 total_interactions = 1000
