@@ -40,7 +40,7 @@ Qtable = read_txt("resultado.txt")
 print(Qtable)
     
 s = cn.connect(2037)
-total_interactions = 1000
+total_interactions = 100000
 for i in range (1, total_interactions):
     print('rodada', i)
     
@@ -51,10 +51,10 @@ for i in range (1, total_interactions):
         action = 0
         
         if random.uniform(0, 1) < epsilon:
-            print('random epsilon', epsilon)
+            # print('random epsilon', epsilon)
             action = random.randint(0, 2) #Uma das 3 açoes: left, right, jump
         else:
-            print('not random')
+            # print('not random')
             value = -1000 #valor arbitrario
             for index in range (3): #percorre as acoes de 0 até 2
                     
@@ -64,9 +64,9 @@ for i in range (1, total_interactions):
                     
         current_state = state
         state, reward = cn.get_state_reward(s , act[action])
-        print('reward', reward)
+        # print('reward', reward)
         state = int(state, 2) #S2
-        print('state', state)
+        # print('state', state)
         
         #Equação de Bellman para atualização da Tabela_Q
         estimate = reward + gamma*np.max(Qtable[state]) #Estimativa de Q(s,a) pela Equação de Belman
@@ -81,5 +81,6 @@ for i in range (1, total_interactions):
     
     epsilon -= (epsilon/total_interactions)
     print('wins', wins)
+    print('win rate', wins/i)
     write_txt(Qtable)                
                     
