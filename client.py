@@ -11,7 +11,7 @@ act = ["left", "right", "jump"]     #A ordem das colunas na Q-Table de ser
 
 alpha = 0.3
 gamma = 0.8
-epsilon = 0.4
+epsilon = 0.3
 
 state = 0
 
@@ -40,7 +40,7 @@ Qtable = read_txt("resultado.txt")
 print(Qtable)
     
 s = cn.connect(2037)
-total_interactions = 100000
+total_interactions = 1000
 for i in range (1, total_interactions):
     print('rodada', i)
     
@@ -66,7 +66,7 @@ for i in range (1, total_interactions):
         state, reward = cn.get_state_reward(s , act[action])
         # print('reward', reward)
         state = int(state, 2) #S2
-        # print('state', state)
+        print('state', state)
         
         #Equação de Bellman para atualização da Tabela_Q
         estimate = reward + gamma*np.max(Qtable[state]) #Estimativa de Q(s,a) pela Equação de Belman
